@@ -19,10 +19,11 @@ def app():
     
     #if qui déclenche la fonction "display" lorsqu'un numéro de client existant est entré
     #ou affiche un message d'erreur si le numéro de client est mauvais
-    if client_ID in df_CBC["SK_ID_CURR"].values.astype(str):
-        display(client_ID)
-    else:
-        st.markdown("<h1 style='text-align: center; color: red;'>Merci de vérifier votre numéro de client</h1>", unsafe_allow_html=True)
+    if client_ID:
+        if client_ID in df_CBC["SK_ID_CURR"].values.astype(str):
+            display(client_ID)
+        else:
+            st.markdown("<h1 style='text-align: center; color: red;'>Merci de vérifier votre numéro de client</h1>", unsafe_allow_html=True)
 
 
 def display (client_ID):
