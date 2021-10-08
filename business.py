@@ -11,10 +11,12 @@ from streamlitmetrics import metric, metric_row
 
 def app():
     
+    #titre de la page 
     st.title("Dashboard business")
 
+    #bloc de sélection des poids par l'utilisateur
     st.markdown("<h2 style='text-align: center;'>Définition des coûts & bénéfices</h2>", unsafe_allow_html=True)
-    
+
     c5, c6 = st.columns(2)
     c7, c8 = st.columns(2)
 
@@ -28,9 +30,10 @@ def app():
     TN
     FP
 
+    #chargement du CSV
     df = pd.read_csv("result_CBC_deploy.csv")
     
-    
+    #back-end de sélection du seuil de risque (càd probabilité d'être en classe 0 ou 1)
     range_of_thresh = np.arange(0.1,0.9,0.01)
     list_of_benef = []
     best_benef = -999999999999
@@ -55,23 +58,15 @@ def app():
     benef_point.append(best_benef)
     thresh_point.append(best_thresh)
     
-    
+    #front-end de sélection du seuil de risque (càd probabilité d'être en classe 0 ou 1)
     st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center;'>Seuil de risque</h2>", unsafe_allow_html=True)
-   
-    #ff.create_annotated_heatmap(z, colorscale='Viridis')
-   
     
     Thresh = st.slider("Choix du seuil",min_value = 0.1,max_value = 0.9,value = best_thresh)
     
     
+    #back-end des metrics selon les paramètres choisis par l'utilisateur
     df['predicted_new'] = df["proba"].apply(lambda x:1 if x>= Thresh else 0)
-    
-    
-    #current_benef=[df_benef[df_benef['Thresh']==Thresh]["benef"].values[0].item()]
-    #current_thresh=[Thresh]
-    #st.write(current_benef)
-    
     
     fig = px.line(df_benef, x="Seuil", y="Bénéfice", title = "Evolution du bénéfice en fonction du seuil de risque")
     fig.update_traces(line=dict(color = "blue"))
@@ -85,7 +80,6 @@ def app():
             size=15,
             )))
     fig.add_vline(Thresh)
-   
     
     cf= confusion_matrix(df["ground"],df['predicted_new'])
     cf_weighted = cf.copy()
@@ -108,6 +102,7 @@ def app():
     fig_mat = ff.create_annotated_heatmap(cf,x=x,y=y, colorscale="BuGn")
     fig_mat.layout.update({'title': 'Matrice de confusion'})
 
+    #front-end des metrics selon les paramètres choisis par l'utilisateur
     st.plotly_chart(fig, use_container_width = True)
 
     st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
@@ -122,7 +117,3 @@ def app():
                 "Risque estimé": best_thresh,
                 "Bénéfice avec votre choix de seuil": df_benef[df_benef['Seuil']==Thresh]["Bénéfice"].values[0],
                 "Risque choisi": Thresh})
-    
-    #metric_row({"Bénéfice avec votre choix": df_benef[df_benef['Thresh']==Thresh]["benef"].values[0],
-                #"Risque choisie": Thresh})
-
