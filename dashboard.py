@@ -48,6 +48,9 @@ def display (client_ID):
     )
     metrics
 
+    st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Profil du client & comparaison</h2>", unsafe_allow_html=True)
+
     #création d'un dataframe vide qui servira à contenir les lignes de la même classe que le client (0 ou 1)
     classe_output = pd.DataFrame()
 
@@ -92,6 +95,7 @@ def display (client_ID):
     plot4
 
     #plot des feature importance extraits de la modélisation
+    st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
     st.markdown("<h2 style='text-align: center;'>Pourquoi ces éléments ont été sélectionnés ?</h2>", unsafe_allow_html=True)
     feature_imp = pd.read_csv('feature_imp_top10_renamed.csv')
     st.plotly_chart(px.bar(feature_imp, x="Variable", y="Pourcentage d'importance", title='Importance des variables dans la classification', color="Pourcentage d'importance"), use_container_width=True)

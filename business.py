@@ -5,7 +5,6 @@ import plotly.express as px
 import plotly.graph_objects as go
 import streamlit as st
 import plotly.figure_factory as ff
-import streamlit as st
 from streamlitmetrics import metric, metric_row
 
 
@@ -13,7 +12,9 @@ from streamlitmetrics import metric, metric_row
 def app():
     
     st.title("Dashboard business")
-    st.write("Définition des coûts & bénéfices")
+
+    st.markdown("<h2 style='text-align: center;'>Définition des coûts & bénéfices</h2>", unsafe_allow_html=True)
+    
     c5, c6 = st.columns(2)
     c7, c8 = st.columns(2)
 
@@ -55,7 +56,8 @@ def app():
     thresh_point.append(best_thresh)
     
     
-    
+    st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Seuil de risque</h2>", unsafe_allow_html=True)
    
     #ff.create_annotated_heatmap(z, colorscale='Viridis')
    
@@ -100,7 +102,6 @@ def app():
     str_list =  [[str(cf_weighted[0,0])+" $", str(cf_weighted[0,1])+" $"],
                 [str(cf_weighted[1,0])+" $", str(cf_weighted[1,1])+" $"]]
     
-    
 
     fig_mat_priced = ff.create_annotated_heatmap(cf_weighted,x=x,y=y,annotation_text=str_list, colorscale="BuPu")
     fig_mat_priced.layout.update({'title': 'Evaluation impact business'})
@@ -109,10 +110,13 @@ def app():
 
     st.plotly_chart(fig, use_container_width = True)
 
+    st.markdown("<h2 style='text-align: center;'>-----------------------------------------------------------</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='text-align: center;'>Impact de vos choix</h2>", unsafe_allow_html=True)
+
     c9, c10 = st.columns(2)
 
-    c9.plotly_chart(fig_mat, use_container_width = True)
-    c10.plotly_chart(fig_mat_priced, use_container_width = True)
+    c9.plotly_chart(fig_mat, use_container_width=True)
+    c10.plotly_chart(fig_mat_priced, use_container_width=True)
     
     metric_row({"Meilleur bénéfice estimé": best_benef,
                 "Risque estimé": best_thresh,
