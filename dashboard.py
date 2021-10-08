@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 import plotly.express as px
-from streamlit_metrics import metric, metric_row
+from streamlitmetrics import metric, metric_row
 import re
 
 def app():

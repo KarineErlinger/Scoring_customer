@@ -6,7 +6,7 @@ import plotly.graph_objects as go
 import streamlit as st
 import plotly.figure_factory as ff
 import streamlit as st
-from streamlit_metrics import metric, metric_row
+from streamlitmetrics import metric, metric_row
 
 
 
