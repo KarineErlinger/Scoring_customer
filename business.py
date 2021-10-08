@@ -111,8 +111,8 @@ def app():
 
     c9, c10 = st.columns(2)
 
-    c9.write(fig_mat)
-    c10.write(fig_mat_priced)
+    c9.plotly_chart(fig_mat, use_container_width = True)
+    c10.plotly_chart(fig_mat_priced, use_container_width = True)
     
     metric_row({"Meilleur bénéfice estimé": best_benef,
                 "Risque estimé": best_thresh,
