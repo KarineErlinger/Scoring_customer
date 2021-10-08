@@ -93,9 +93,8 @@ def display (client_ID):
 
     #plot des feature importance extraits de la modélisation
     st.markdown("<h2 style='text-align: center;'>Pourquoi ces éléments ont été sélectionnés ?</h2>", unsafe_allow_html=True)
-
-    feature_imp = pd.read_csv('feature_imp_top10.csv')
-    st.plotly_chart(px.bar(feature_imp, x='Feature', y='Value', title='Importance des variables dans la classification en %', color='Value'), use_container_width=True)
+    feature_imp = pd.read_csv('feature_imp_top10_renamed.csv')
+    st.plotly_chart(px.bar(feature_imp, x="Variable", y="Pourcentage d'importance", title='Importance des variables dans la classification', color="Pourcentage d'importance"), use_container_width=True)
 
     return()
 
